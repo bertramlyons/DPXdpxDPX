@@ -1,0 +1,87 @@
+Magic number,0,4
+Offset to image data,4,8
+Version number of header format,8,16
+Total image file size,16,20
+Ditto Key,20,24
+Generic section header length,24,28
+Industry specific header length,28,32
+User-defined header length,32,36
+FileName,36,136
+Creation Date,136,160
+Creator,160,260
+Project,260,460
+Right to use or copyright statement,460,660
+Encryption key,660,664
+Reserved for future use,664,768
+Image orientation,768,770
+Number of image elements,770,772
+Pixels per line,772,776
+Lines per image element,776,780
+Data sign,780,784
+Reference low data code value,784,788
+Reference low quantity represented,788,792
+Reference high data code value,792,796
+Reference high quantity represented,796,800
+Descriptor,800,801
+Transfer characteristic,801,802
+Colorimetric specification,802,803
+Bit depth,803,804
+Packing,804,806
+Encoding,806,808
+Offset to data,808,812
+End-of-line padding,812,816
+End-of-image padding,816,820
+Description of image element,820,852
+Padding,852,1356
+Reserved for future use,1356,1408
+X Offset,1408,1412
+Y Offset,1412,1416
+X center,1416,1420
+Y center,1420,1424
+X original size,1424,1428
+Y original size,1428,1432
+Source image filename,1432,1532
+Source image date/time,1532,1556
+Input device name,1556,1588
+Input device serial number,1588,1620
+XL border,1620,1622
+XR border,1622,1624
+YT border,1624,1626
+YB border,1626,1628
+Pixel ratio : horizontal,1628,1632
+Pixel ratio : vertical,1632,1636
+X scanned size,1636,1640
+Y scanned size,1640,1644
+Reserved for future use,1644,1664
+Film mfg. ID code,1664,1666
+Film type,1666,1668
+Offset in perfs,1668,1670
+Prefix,1670,1676
+Count,1676,1680
+Format - e.g. Academy,1680,1712
+Frame position in sequence,1712,1716
+Sequence length (frames),1716,1720
+Held count (1 = default),1720,1724
+Frame rate of original (frames/s),1724,1728
+Shutter angle of camera in degrees,1728,1732
+Frame identification - e.g. keyframe,1732,1764
+Slate information,1764,1864
+Reserved for future use,1864,1920
+SMPTE time code,1920,1924
+SMPTE user bits,1924,1928
+Interlace,1928,1929
+Field number,1929,1930
+Video signal standard,1930,1931
+Zero,1931,1932
+Horizontal sampling rate (Hz),1932,1936
+Vertical sampling rate (Hz),1936,1940
+Temporal sampling rate or frame rate (Hz),1940,1944
+Time offset from sync to first pixel (ms),1944,1948
+Gamma,1948,1952
+Black level code value,1952,1956
+Black gain,1956,1960
+Breakpoint,1960,1964
+Reference white level code value,1964,1968
+Integration time (s),1968,1972
+Reserved for future use,1972,2048
+Data,2048,
