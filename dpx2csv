@@ -3,95 +3,13 @@
 FIRSTDPX=$(ls -1 "${1}"/*.dpx | head -n 1)
 HEADER=$(mediaconch -mt -fx "${FIRSTDPX}" | xmlstarlet sel -N "mt=https://mediaarea.net/mediatrace" -T -t -m //_:data -v @name -o ",")
 
-echo "${HEADER}" > dpx_data.csv
+echo "RealFileName,${HEADER}" > dpx_data.csv
 for DPXFILE in "${1}/"*.dpx ; do
     echo "$DPXFILE"
     mediaconch -mt -fx "${DPXFILE}" | xmlstarlet sel \
         -N "mt=https://mediaarea.net/mediatrace" -T -t \
         -m _:MediaTrace/_:media \
         -v @ref -o "," \
-        -v //_:data[@offset=0] -o "," \
-        -v //_:data[@offset=4] -o "," \
-        -v //_:data[@offset=8] -o "," \
-        -v //_:data[@offset=16] -o "," \
-        -v //_:data[@offset=20] -o "," \
-        -v //_:data[@offset=24] -o "," \
-        -v //_:data[@offset=28] -o "," \
-        -v //_:data[@offset=32] -o "," \
-        -v //_:data[@offset=36] -o "," \
-        -v //_:data[@offset=136] -o "," \
-        -v //_:data[@offset=160] -o "," \
-        -v //_:data[@offset=260] -o "," \
-        -v //_:data[@offset=460] -o "," \
-        -v //_:data[@offset=660] -o "," \
-        -v //_:data[@offset=664] -o "," \
-        -v //_:data[@offset=768] -o "," \
-        -v //_:data[@offset=772] -o "," \
-        -v //_:data[@offset=776] -o "," \
-        -v //_:data[@offset=780] -o "," \
-        -v //_:data[@offset=784] -o "," \
-        -v //_:data[@offset=788] -o "," \
-        -v //_:data[@offset=792] -o "," \
-        -v //_:data[@offset=796] -o "," \
-        -v //_:data[@offset=800] -o "," \
-        -v //_:data[@offset=801] -o "," \
-        -v //_:data[@offset=802] -o "," \
-        -v //_:data[@offset=803] -o "," \
-        -v //_:data[@offset=804] -o "," \
-        -v //_:data[@offset=806] -o "," \
-        -v //_:data[@offset=808] -o "," \
-        -v //_:data[@offset=812] -o "," \
-        -v //_:data[@offset=816] -o "," \
-        -v //_:data[@offset=820] -o "," \
-        -v //_:data[@offset=852] -o "," \
-        -v //_:data[@offset=1356] -o "," \
-        -v //_:data[@offset=1408] -o "," \
-        -v //_:data[@offset=1412] -o "," \
-        -v //_:data[@offset=1416] -o "," \
-        -v //_:data[@offset=1420] -o "," \
-        -v //_:data[@offset=1424] -o "," \
-        -v //_:data[@offset=1428] -o "," \
-        -v //_:data[@offset=1432] -o "," \
-        -v //_:data[@offset=1532] -o "," \
-        -v //_:data[@offset=1556] -o "," \
-        -v //_:data[@offset=1588] -o "," \
-        -v //_:data[@offset=1620] -o "," \
-        -v //_:data[@offset=1622] -o "," \
-        -v //_:data[@offset=1624] -o "," \
-        -v //_:data[@offset=1628] -o "," \
-        -v //_:data[@offset=1632] -o "," \
-        -v //_:data[@offset=1636] -o "," \
-        -v //_:data[@offset=1640] -o "," \
-        -v //_:data[@offset=1644] -o "," \
-        -v //_:data[@offset=1664] -o "," \
-        -v //_:data[@offset=1666] -o "," \
-        -v //_:data[@offset=1668] -o "," \
-        -v //_:data[@offset=1670] -o "," \
-        -v //_:data[@offset=1676] -o "," \
-        -v //_:data[@offset=1680] -o "," \
-        -v //_:data[@offset=1712] -o "," \
-        -v //_:data[@offset=1716] -o "," \
-        -v //_:data[@offset=1720] -o "," \
-        -v //_:data[@offset=1724] -o "," \
-        -v //_:data[@offset=1728] -o "," \
-        -v //_:data[@offset=1732] -o "," \
-        -v //_:data[@offset=1764] -o "," \
-        -v //_:data[@offset=1864] -o "," \
-        -v //_:data[@offset=1920] -o "," \
-        -v //_:data[@offset=1924] -o "," \
-        -v //_:data[@offset=1928] -o "," \
-        -v //_:data[@offset=1929] -o "," \
-        -v //_:data[@offset=1930] -o "," \
-        -v //_:data[@offset=1931] -o "," \
-        -v //_:data[@offset=1932] -o "," \
-        -v //_:data[@offset=1936] -o "," \
-        -v //_:data[@offset=1940] -o "," \
-        -v //_:data[@offset=1944] -o "," \
-        -v //_:data[@offset=1948] -o "," \
-        -v //_:data[@offset=1952] -o "," \
-        -v //_:data[@offset=1956] -o "," \
-        -v //_:data[@offset=1960] -o "," \
-        -v //_:data[@offset=1964] -o "," \
-        -v //_:data[@offset=1968] -o "," \
-        -v //_:data[@offset=1972] -n >> dpx_data.csv
+        -m //_:data \
+        -v "." -o "," -t -n >> dpx_data.csv
 done
