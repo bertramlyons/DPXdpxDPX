@@ -3,13 +3,17 @@
 FIRSTDPX=$(ls -1 "${1}"/*.dpx | head -n 1)
 HEADER=$(mediaconch -mt -fx "${FIRSTDPX}" | xmlstarlet sel -N "mt=https://mediaarea.net/mediatrace" -T -t -m //_:data -v @name -o ",")
 
-echo "RealFileName,${HEADER}" > dpx_data.csv
+COUNTER=0
+
+echo "Number,RealFileName,${HEADER}" > dpx_data.csv
 for DPXFILE in "${1}/"*.dpx ; do
     echo "$DPXFILE"
     mediaconch -mt -fx "${DPXFILE}" | xmlstarlet sel \
         -N "mt=https://mediaarea.net/mediatrace" -T -t \
         -m _:MediaTrace/_:media \
+        -o "${COUNTER}" -o "," \
         -v @ref -o "," \
         -m //_:data \
         -v "." -o "," -t -n >> dpx_data.csv
+    COUNTER=$[$COUNTER +1]
 done
