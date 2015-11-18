@@ -1,3 +1,3 @@
-MediaConch and XMLStarlet are dependencies.
+MediaConch and XMLStarlet are dependencies for dpxcsv.
 
 
