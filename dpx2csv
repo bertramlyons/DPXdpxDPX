@@ -88,5 +88,5 @@ for DPXFILE in "${1}/*.dpx" ; do
         -v //_:data[@offset=1960] -o "," \
         -v //_:data[@offset=1964] -o "," \
         -v //_:data[@offset=1968] -o "," \
-        -v //_:data[@offset=1972] -n
+        -v //_:data[@offset=1972] -n >> dpx_data.csv
 done
