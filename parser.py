@@ -1,6 +1,5 @@
 import csv
 from enum import Enum
-csv_file = "dpx_data.csv"
 
 class fields(Enum):
     Magic = 'Magic number'
@@ -87,18 +86,20 @@ class fields(Enum):
     Black_gain = 'Black gain'
     Breakpoint = 'Breakpoint'
     Reference_white_level = 'Reference white level code value'
-    Integration_time= 'Integration time (s)'
+    Integration_time = 'Integration time (s)'
     # Reserved = 'Reserved for future use'
     Data = 'Data'
 
+def main():
+    csv_file = "dpx_data.csv"
+
+    with open(csv_file) as data_file:
+        reader = csv.DictReader(data_file)
+
+        for n in reader:
+            print(n)
+            pass
 
 
-with open(csv_file) as data_file:
-    reader = csv.DictReader(data_file)
-
-    for n in reader:
-        print(n)
-        pass
-    pass
-
-
+if __name__ == '__main__':
+    main()
