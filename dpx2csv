@@ -3,7 +3,8 @@ echo "FileName,Magic number,Offset to image data,Version number of header format
 for DPXFILE in "${1}/.dpx" ; do
     mediaconch -mt -fx "${DPXFILE}" | xmlstarlet sel \
         -N "mt=https://mediaarea.net/mediatrace" -T -t \
-        -m _:MediaTrace/_:media -v @ref -o "," \
+        -m _:MediaTrace/_:media \
+        -v @ref -o "," \
         -v //_:data[@offset=0] -o "," \
         -v //_:data[@offset=4] -o "," \
         -v //_:data[@offset=8] -o "," \
