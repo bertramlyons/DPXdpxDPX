@@ -1,4 +1,4 @@
-title, startBite, endBite
+title, startByte, endByte
 Magic number,0,4
 Offset to image data,4,8
 Version number of header format,8,16
