@@ -1,23 +1,24 @@
 import csv
 import os
 from enum import Enum
-
-def get_offsets(csvfile, field):
-
-    with open(csvfile) as datafile:
-        assert os.path.exists(csvfile)
-        reader = csv.DictReader(datafile)
-
-        print(csvfile)
-        for entry in reader:
-            if entry['title'] == field:
-
-                start_byte = entry['startByte']
-                end_byte = entry['endByte']
-                # print(start_byte, end_byte)
-
-                return start_byte, end_byte
-            raise Exception("BAD BAD BAD")
+from import_csv import get_offsets
+DPX_LOOKUP = "dpx_offsets.csv"
+# def get_offsets(csvfile, field):
+#
+#     with open(csvfile) as datafile:
+#         assert os.path.exists(csvfile)
+#         reader = csv.DictReader(datafile)
+#
+#         # print(csvfile)
+#         for entry in reader:
+#             if entry['title'] == field:
+#
+#                 start_byte = entry['startByte']
+#                 end_byte = entry['endByte']
+#                 # print(start_byte, end_byte)
+#
+#                 return start_byte, end_byte
+#             raise Exception("BAD BAD BAD")
 
 class fields(Enum):
     Magic = 'Magic number'
@@ -110,14 +111,10 @@ class fields(Enum):
 
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
-        #todo: look up for file
-        start, end = get_offsets(file_name, field_name)
-        # print(start)
-        file.seak(start)
-        file.write(data)
-
-
-
+        start, end = get_offsets(DPX_LOOKUP, field_name)
+        print(start)
+        file.seek(start)
+        file.write(bytes(data, encoding="ASCII"))
 
 def main():
     csv_file = "dpx_data.csv"
