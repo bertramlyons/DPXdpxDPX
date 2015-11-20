@@ -3,7 +3,7 @@ import os
 # from enum import Enum
 
 import sys
-from tkinter.filedialog import askopenfilename
+
 
 try:
     import tkinter
@@ -11,7 +11,7 @@ except ImportError:
     import Tkinter as tkinter
 from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
-
+from tkinter.filedialog import askopenfilename
 
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
