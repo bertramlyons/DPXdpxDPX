@@ -1,6 +1,6 @@
 import csv
 import os
-from enum import Enum
+# from enum import Enum
 
 import sys
 from tkinter.filedialog import askopenfilename
