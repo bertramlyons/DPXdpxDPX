@@ -51,11 +51,15 @@ def main():
         with open(csv_file) as data_file:
             reader = csv.DictReader(data_file)
             for record in reader:
-                for f in os.listdir(os.path.split(csv_file)[0]):
+                # print(csv_file)
+                pwd = os.path.dirname(csv_file)
+                # pwd = os.path()/
+                # print(pwd)
+                for f in pwd:
                     workingFile = os.path.basename(record['RealFileName'])
                     if f == workingFile:
                         print("Now Working on: {}".format(workingFile))
-                        write_field(record['Creator'], 'Creator', workingFile)
+                        write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
                         write_field(record['FileName'], 'FileName', workingFile)
                         write_field(record['Project'], 'Project', workingFile)
                 pass
