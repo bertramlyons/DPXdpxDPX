@@ -53,20 +53,22 @@ def main():
         # f = os.path.normcase(f)
         with open(csv_file) as data_file:
             reader = csv.DictReader(data_file)
+            pwd = os.path.dirname(csv_file)
+            print("Working folder {}.".format(pwd))
             for record in reader:
                 # print(csv_file)
-                pwd = os.path.dirname(csv_file)
+
                 # pwd = os.path()/
-                # print(pwd)
-                for f in pwd:
+
+                for f in os.listdir(pwd):
                     workingFile = os.path.basename(record['RealFileName'])
                     if f == workingFile:
                         print("Now Working on: {}".format(workingFile))
                         write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
-                        write_field(record['FileName'], 'FileName', workingFile)
-                        write_field(record['Project'], 'Project', workingFile)
+                        write_field(data=record['FileName'], field_name='FileName', file_name=workingFile)
+                        write_field(data=record['Project'], field_name='Project', file_name=workingFile)
                 pass
-
+            print("All done")
 
 if __name__ == '__main__':
     main()
