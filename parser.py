@@ -120,7 +120,7 @@ class fields(Enum):
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
         start, end = get_offsets(DPX_LOOKUP, field_name)
-        print(start)
+        print("Writing \"{}\" to \"{}\" field.".format(data, field_name))
         file.seek(start)
         file.write(bytes(data, encoding="ASCII"))
 
@@ -157,8 +157,10 @@ def main():
                 for f in os.listdir("."):
                     workingFile = os.path.basename(record['RealFileName'])
                     if f == workingFile:
+                        print("Now Working on: {}".format(workingFile))
                         write_field(record['Creator'], 'Creator', workingFile)
                         write_field(record['FileName'], 'FileName', workingFile)
+                        write_field(record['Project'], 'Project', workingFile)
                 pass
 
 

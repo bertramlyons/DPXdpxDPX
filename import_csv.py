@@ -17,16 +17,16 @@ def get_offsets(csvfile, field):
         except:
             pass
             # print(entry)
-        print(csvfile)
+        # print(csvfile)
 
         for entry in foo:
             if entry['title'] == field:
                 start_byte = int(entry['startByte'])
                 end_byte = int(entry['endByte'])
-                print("Found {}".format(field))
+                # print("Found {}".format(field))
                 break
     if start_byte and end_byte:
-        print(start_byte, end_byte)
+        # print(start_byte, end_byte)
         return int(start_byte), int(end_byte)
     else:
         raise Exception("missing field \"{}\"".format(field))
