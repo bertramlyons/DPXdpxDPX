@@ -140,29 +140,26 @@ def get_file():
 
 
 def main():
-    f = None
+    csv_file= None
     if len(sys.argv) == 2:
         if os.path.exists(sys.argv[1]):
-            f = sys.argv[1]
+            csv_file = sys.argv[1]
         else:
             sys.stderr.write("Error: Cannot find file \"{}\"\nExiting.".format(sys.argv[1]))
             exit(-1)
     else:
         csv_file = get_file()
-    if f:
-        f = os.path.normcase(f)
-        # test(f)
-    csv_file = "dpx_data.csv"
-
-    with open(csv_file) as data_file:
-        reader = csv.DictReader(data_file)
-        for record in reader:
-            for f in os.listdir("."):
-                workingFile = os.path.basename(record['RealFileName'])
-                if f == workingFile:
-                    write_field(record['Creator'], 'Creator', workingFile)
-                    write_field(record['FileName'], 'FileName', workingFile)
-            pass
+    if csv_file:
+        # f = os.path.normcase(f)
+        with open(csv_file) as data_file:
+            reader = csv.DictReader(data_file)
+            for record in reader:
+                for f in os.listdir("."):
+                    workingFile = os.path.basename(record['RealFileName'])
+                    if f == workingFile:
+                        write_field(record['Creator'], 'Creator', workingFile)
+                        write_field(record['FileName'], 'FileName', workingFile)
+                pass
 
 
 if __name__ == '__main__':
