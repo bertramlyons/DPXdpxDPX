@@ -51,7 +51,7 @@ def main():
         with open(csv_file) as data_file:
             reader = csv.DictReader(data_file)
             for record in reader:
-                for f in os.listdir("."):
+                for f in os.listdir(os.path.split(csv_file)[0]):
                     workingFile = os.path.basename(record['RealFileName'])
                     if f == workingFile:
                         print("Now Working on: {}".format(workingFile))
