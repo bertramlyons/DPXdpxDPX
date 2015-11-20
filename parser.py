@@ -1,6 +1,14 @@
 import csv
 import os
 from enum import Enum
+
+import sys
+from tkinter.filedialog import askopenfilename
+
+try:
+    import tkinter
+except ImportError:
+    import Tkinter as tkinter
 from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
 # def get_offsets(csvfile, field):
@@ -116,7 +124,34 @@ def write_field(data, field_name, file_name):
         file.seek(start)
         file.write(bytes(data, encoding="ASCII"))
 
+
+def get_file():
+    root = tkinter.Tk()
+    root.withdraw()
+    file_opt = options = {}
+    options['defaultextension'] = '.avi'
+    options['filetypes'] = [('CSV', '.csv'),
+                            ('All Files', '.*')]
+    # options['initialdir'] = 'C:\\'
+    options['parent'] = root
+    options['title'] = 'Select a file'
+    f = askopenfilename(**file_opt)
+    return f
+
+
 def main():
+    f = None
+    if len(sys.argv) == 2:
+        if os.path.exists(sys.argv[1]):
+            f = sys.argv[1]
+        else:
+            sys.stderr.write("Error: Cannot find file \"{}\"\nExiting.".format(sys.argv[1]))
+            exit(-1)
+    else:
+        csv_file = get_file()
+    if f:
+        f = os.path.normcase(f)
+        # test(f)
     csv_file = "dpx_data.csv"
 
     with open(csv_file) as data_file:
@@ -126,6 +161,7 @@ def main():
                 workingFile = os.path.basename(record['RealFileName'])
                 if f == workingFile:
                     write_field(record['Creator'], 'Creator', workingFile)
+                    write_field(record['FileName'], 'FileName', workingFile)
             pass
 
 
