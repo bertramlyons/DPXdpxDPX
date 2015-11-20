@@ -61,7 +61,7 @@ def main():
                 # pwd = os.path()/
 
                 for f in os.listdir(pwd):
-                    workingFile = os.path.basename(record['RealFileName'])
+                    workingFile = os.path.join(pwd, os.path.basename(record['RealFileName']))
                     if f == workingFile:
                         print("Now Working on: {}".format(workingFile))
                         write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
