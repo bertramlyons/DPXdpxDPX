@@ -7,11 +7,12 @@ import sys
 
 try:
     import tkinter
+    from tkinter.filedialog import askopenfilename
 except ImportError:
     import Tkinter as tkinter
+    from tkinter.filedialog import askopenfilename
 from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
-from tkinter.filedialog import askopenfilename
 
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
