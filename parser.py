@@ -46,6 +46,7 @@ def main():
     else:
         csv_file = get_file()
     if csv_file:
+        print("starting DPX metadata project")
         # f = os.path.normcase(f)
         with open(csv_file) as data_file:
             reader = csv.DictReader(data_file)
