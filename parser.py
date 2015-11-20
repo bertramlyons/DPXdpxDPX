@@ -20,7 +20,7 @@ DPX_LOOKUP = "dpx_offsets.csv"
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
         start, end = get_offsets(DPX_LOOKUP, field_name)
-        print("Writing \"{}\" to \"{}\" field.".format(data, field_name))
+        print("Writing into field: {}. \t\"{}\"".format(field_name, data))
         file.seek(start)
         file.write(bytes(data, encoding="ASCII"))
 
@@ -52,21 +52,26 @@ def main():
         print("starting DPX metadata project")
         # f = os.path.normcase(f)
         with open(csv_file) as data_file:
-            reader = csv.DictReader(data_file)
-            pwd = os.path.dirname(csv_file)
+            DPX_records = csv.DictReader(data_file)
+            pwd = os.path.dirname(os.path.abspath(csv_file))
             print("Working folder {}.".format(pwd))
-            for record in reader:
+
+            # TODO: make a function that searches for all the files first
+            # TODO: change to generator that runs through all the found files
+
+            for record in DPX_records:
                 # print(csv_file)
 
                 # pwd = os.path()/
 
                 for f in os.listdir(pwd):
-                    workingFile = os.path.join(pwd, os.path.basename(record['RealFileName']))
-                    if f == workingFile:
+                    if f == os.path.basename(record['RealFileName']):
+                        workingFile = os.path.join(pwd, os.path.basename(record['RealFileName']))
                         print("Now Working on: {}".format(workingFile))
                         write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
                         write_field(data=record['FileName'], field_name='FileName', file_name=workingFile)
                         write_field(data=record['Project'], field_name='Project', file_name=workingFile)
+                print("")
                 pass
             print("All done")
 
