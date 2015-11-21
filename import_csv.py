@@ -25,11 +25,11 @@ def get_offsets(csvfile, field):
                 end_byte = int(entry['endByte'])
                 # print("Found {}".format(field))
                 break
-    if start_byte and end_byte:
+    if start_byte is not None and end_byte is not None:
         # print(start_byte, end_byte)
         return int(start_byte), int(end_byte)
     else:
-        raise Exception("missing field \"{}\"".format(field))
+        raise Exception("Missing field \"{}\"".format(field))
 
 
 # get_offsets("D:/sandbox/projects/python/dpx/DPXdpxDPX/dpx_offsets.csv", "Creator")
