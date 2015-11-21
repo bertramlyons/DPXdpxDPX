@@ -26,6 +26,7 @@ def write_field(data, field_name, file_name):
         max_size = end - start
         try:
             int(data)
+            #TODO add a way to insert non-ASCII text fields
             return
         except:
             pass
