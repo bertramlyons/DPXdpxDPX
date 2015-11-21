@@ -97,6 +97,8 @@ def main():
                                 continue
                             if key == "Data":
                                 continue
+                            if key == "Reserved for future use":
+                                continue
                             if value:
 
                                 try:
