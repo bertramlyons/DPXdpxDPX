@@ -17,9 +17,15 @@ except ImportError:
 from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
 
+
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
         start, end = get_offsets(DPX_LOOKUP, field_name)
+
+        # prevents user adding data larger than then will fit
+        if len(data) > end - start:
+            raise Exception("Data is larger than the allowed space")
+
         print("Writing into field: {}. \t\"{}\"".format(field_name, data))
         file.seek(start)
         file.write(bytes(data, encoding="ASCII"))
@@ -40,6 +46,7 @@ def get_file():
 
 def main():
     csv_file= None
+    files_alterned = 0
     if len(sys.argv) == 2:
         if os.path.exists(sys.argv[1]):
             csv_file = sys.argv[1]
@@ -49,7 +56,7 @@ def main():
     else:
         csv_file = get_file()
     if csv_file:
-        print("starting DPX metadata project")
+        print("Starting DPX metadata altering script")
         # f = os.path.normcase(f)
         with open(csv_file) as data_file:
             DPX_records = csv.DictReader(data_file)
@@ -71,9 +78,11 @@ def main():
                         write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
                         write_field(data=record['FileName'], field_name='FileName', file_name=workingFile)
                         write_field(data=record['Project'], field_name='Project', file_name=workingFile)
+                        files_alterned += 1
                 print("")
                 pass
-            print("All done")
+            print("{} DPX files changed.".format(files_alterned))
+            print("All done.")
 
 if __name__ == '__main__':
     main()
