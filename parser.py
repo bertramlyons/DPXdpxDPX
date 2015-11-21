@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 import csv
 import os
-# from enum import Enum
-
 import sys
-
 
 try:
     import tkinter
@@ -19,17 +16,27 @@ from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
 
 
+class DataError(Exception):
+    pass
+
+
 def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
         start, end = get_offsets(DPX_LOOKUP, field_name)
-
+        max_size = end - start
         # prevents user adding data larger than then will fit
-        if len(data) > end - start:
-            raise Exception("Data is larger than the allowed space")
-
         print("Writing into field: {}. \t\"{}\"".format(field_name, data))
+
+        # fill the rest of the space with blank space
+        if len(data) < max_size:
+            while len(data) < max_size:
+                data += " "
+        if len(data) > max_size:
+            raise DataError("Data in \"{}\" is larger than the allowed space. "
+                            "Tried to add {} bytes of data in a limit of {}.".format(field_name, len(data), max_size))
         file.seek(start)
-        file.write(bytes(data, encoding="ASCII"))
+        file.write(bytes(data, encoding="ascii"))
+
 
 
 def get_file():
@@ -46,8 +53,8 @@ def get_file():
 
 
 def main():
-    csv_file= None
-    files_alterned = 0
+    csv_file = None
+    files_altered = 0
     if len(sys.argv) == 2:
         if os.path.exists(sys.argv[1]):
             csv_file = sys.argv[1]
@@ -76,13 +83,25 @@ def main():
                     if f == os.path.basename(record['RealFileName']):
                         workingFile = os.path.join(pwd, os.path.basename(record['RealFileName']))
                         print("Now Working on: {}".format(workingFile))
-                        write_field(data=record['Creator'], field_name='Creator', file_name=workingFile)
-                        write_field(data=record['FileName'], field_name='FileName', file_name=workingFile)
-                        write_field(data=record['Project'], field_name='Project', file_name=workingFile)
-                        files_alterned += 1
+                        assert(isinstance(record, dict))
+                        for key, value in record.items():
+                            if key == "Number":
+                                continue
+                            if key == "RealFileName":
+                                continue
+                            if key == "Data":
+                                continue
+                            if value:
+
+                                try:
+                                    write_field(data=record[key], field_name=key, file_name=workingFile)
+                                    # print(key)
+                                except DataError as e:
+                                    print("Error with field, {}.\n\"{}\".\n".format(key, e))
+                        files_altered += 1
                 print("")
                 pass
-            print("{} DPX files changed.".format(files_alterned))
+            print("{} DPX files changed.".format(files_altered))
             print("All done.")
 
 if __name__ == '__main__':
