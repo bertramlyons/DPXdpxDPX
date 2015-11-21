@@ -11,7 +11,7 @@ except ImportError:
         import Tkinter as tkinter
         from tkinter.filedialog import askopenfilename
     except ImportError:
-        print("Unable to load TK inter. Only works now with valid argument")
+        print("Unable to load TKinter. Only works now with valid argument")
 from import_csv import get_offsets
 DPX_LOOKUP = "dpx_offsets.csv"
 
