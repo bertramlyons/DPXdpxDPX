@@ -24,6 +24,11 @@ def write_field(data, field_name, file_name):
     with open(file_name, 'r+b') as file:
         start, end = get_offsets(DPX_LOOKUP, field_name)
         max_size = end - start
+        try:
+            int(data)
+            return
+        except:
+            pass
         # prevents user adding data larger than then will fit
         print("Writing into field: {}. \t\"{}\"".format(field_name, data))
 
