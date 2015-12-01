@@ -71,9 +71,11 @@ User-defined data|User identification|ASCII
 ## Dependencies
 
 MediaConch and XMLStarlet are dependencies for dpx2csv shell script.
+Python 2.7+ for csv2dpx.
 
+## To Do
 
-
+Needs all the binary type values for each field. If you know these, please add them to the dpx_offsets.csv file. Use the following format listed the Python manual [link](https://docs.python.org/2/library/struct.html#format-characters)
 
 
 
